@@ -9,7 +9,7 @@ import {TodoService} from '../../services/todo.service';
 export class Tab2Page {
 
     constructor(
-        private todoService: TodoService,
+        public todoService: TodoService,
     ) {
     }
 

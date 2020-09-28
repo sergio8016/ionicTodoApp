@@ -7,5 +7,11 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+    <app-lists [items]="todoService.lists" tab="tab1"></app-lists>
 
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button color="tertiary" (click)="addList();">
+            <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
 </ion-content>
