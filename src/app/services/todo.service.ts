@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {ListModel} from '../models/list.model';
+import {ToastController} from '@ionic/angular';
 
 @Injectable({
     providedIn: 'root',
@@ -7,7 +8,9 @@ import {ListModel} from '../models/list.model';
 export class TodoService {
     lists: Array<ListModel> = [];
 
-    constructor() {
+    constructor(
+        public toastController: ToastController,
+    ) {
         this.loadList();
     }
 
@@ -20,19 +23,31 @@ export class TodoService {
         return newList.id;
     }
 
-    getList(id: number | string) {
+    getList(id: number | string): ListModel {
         return this.lists.find(item => item.id === Number(id));
     }
 
-    saveList() {
+    saveList(): void {
         localStorage.setItem('list', JSON.stringify(this.lists));
     }
 
-    loadList() {
+    loadList(): void {
         if (!localStorage.getItem('list')) {
             this.saveList();
         }
 
         this.lists = JSON.parse(localStorage.getItem('list'));
+    }
+
+    async deleteList(item: ListModel) {
+        const index = this.lists.indexOf(item);
+        this.lists.splice(index, 1);
+        this.saveList();
+        const toast = await this.toastController.create({
+            message: 'List deleted',
+            position: 'top',
+            duration: 1500,
+        });
+        await toast.present();
     }
 }

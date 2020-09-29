@@ -1,7 +1,8 @@
-import {Component} from '@angular/core';
+import {ChangeDetectorRef, Component} from '@angular/core';
 import {TodoService} from '../../services/todo.service';
 import {Router} from '@angular/router';
 import {AlertController} from '@ionic/angular';
+import {ListModel} from '../../models/list.model';
 
 @Component({
     selector: 'app-tab1',
@@ -9,12 +10,14 @@ import {AlertController} from '@ionic/angular';
     styleUrls: ['tab1.page.scss'],
 })
 export class Tab1Page {
+    list: Array<ListModel> = [];
 
     constructor(
-        public todoService: TodoService,
+        private todoService: TodoService,
         private router: Router,
         public alertController: AlertController,
     ) {
+        this.list = todoService.lists;
     }
 
     async addList() {

@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {TodoService} from '../../services/todo.service';
+import {ListModel} from '../../models/list.model';
 
 @Component({
     selector: 'app-tab2',
@@ -7,10 +8,12 @@ import {TodoService} from '../../services/todo.service';
     styleUrls: ['tab2.page.scss'],
 })
 export class Tab2Page {
+    list: Array<ListModel> = [];
 
     constructor(
-        public todoService: TodoService,
+        private todoService: TodoService,
     ) {
+        this.list = todoService.lists;
     }
 
 }

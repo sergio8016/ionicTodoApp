@@ -1,8 +1,25 @@
 <ion-list>
-    <ion-item *ngFor="let item of items" detail (click)="goToList(item.id);">
-        <ion-label>
-            {{item.title}}
-        </ion-label>
-        <ion-note slot="end" color="tertiary">{{item.items.length}} items</ion-note>
-    </ion-item>
+    <ion-item-sliding
+            *ngFor="let item of items | doneFilter: tab === 'tab1'; let i = index;"
+            #slidingItem
+    >
+        <ion-item-options side="start">
+            <ion-item-option color="tertiary" (click)="editListTitle(i, slidingItem);">
+                <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+            </ion-item-option>
+        </ion-item-options>
+
+        <ion-item detail (click)="goToList(item.id);">
+            <ion-label>
+                {{item.title}}
+            </ion-label>
+            <ion-note slot="end" color="tertiary">{{item.items.length}} items</ion-note>
+        </ion-item>
+
+        <ion-item-options side="end">
+            <ion-item-option color="danger" (click)="deleteList(item);">
+                <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+            </ion-item-option>
+        </ion-item-options>
+    </ion-item-sliding>
 </ion-list>
